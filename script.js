@@ -1,4 +1,7 @@
 const gameSelect = document.querySelector("#game-select");
+const setupToggle = document.querySelector("#setup-toggle");
+const setupToggleMark = setupToggle.querySelector(".setup-mark");
+const setupContent = document.querySelector("#setup-content");
 const drawCooldownCheckbox = document.querySelector("#draw-cooldown-checkbox");
 const dangerEstimatorCheckbox = document.querySelector("#danger-estimator-checkbox");
 const dangerEstimate = document.querySelector("#danger-estimate");
@@ -131,6 +134,13 @@ function updateSettingsFromInputs() {
   }
   renderDeckStatus();
   saveConfigState();
+}
+
+function toggleSetupContent() {
+  const isExpanded = setupToggle.getAttribute("aria-expanded") === "true";
+  setupToggle.setAttribute("aria-expanded", String(!isExpanded));
+  setupToggleMark.textContent = isExpanded ? "+" : "−";
+  setupContent.hidden = isExpanded;
 }
 
 function configsMatch() {
@@ -838,6 +848,7 @@ updateConfigurationControls();
 initializeDeckFromSnapshot();
 updateConfigFromInputs();
 gameSelect.addEventListener("change", updateConfigFromInputs);
+setupToggle.addEventListener("click", toggleSetupContent);
 drawCooldownCheckbox.addEventListener("change", updateSettingsFromInputs);
 dangerEstimatorCheckbox.addEventListener("change", updateSettingsFromInputs);
 onTheBrinkCheckbox.addEventListener("change", updateConfigFromInputs);

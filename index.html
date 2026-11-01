@@ -115,51 +115,60 @@
 
       <section class="setup" aria-labelledby="setup-title">
         <div class="section-heading setup-heading">
-          <div>
-            <p class="section-label">CONFIGURATION</p>
-            <h2 id="setup-title">Deck setup</h2>
+          <h2 class="setup-heading-title" id="setup-title">
+            <button
+              class="setup-toggle"
+              id="setup-toggle"
+              type="button"
+              aria-expanded="true"
+              aria-controls="setup-content"
+            >
+              <span>Configuration</span>
+              <span class="setup-mark" aria-hidden="true">−</span>
+            </button>
+          </h2>
+        </div>
+        <div id="setup-content">
+          <div class="setup-fields">
+            <label class="select-field setup-field-wide" for="game-select">
+              <span>Game</span>
+              <select id="game-select" name="game">
+                <option value="pandemic">Pandemic</option>
+                <option value="iberia">Iberia</option>
+              </select>
+            </label>
+            <label class="on-the-brink-field setup-field-wide" id="on-the-brink-field" for="on-the-brink-checkbox">
+              <input id="on-the-brink-checkbox" name="on-the-brink" type="checkbox" />
+              <span>On The Brink</span>
+            </label>
+            <label class="on-the-brink-field setup-field-wide" id="mutations-field" for="mutations-checkbox" hidden>
+              <input id="mutations-checkbox" name="mutations" type="checkbox" />
+              <span>Mutations (+3 cards)</span>
+            </label>
+            <label class="number-field" for="player-count">
+              <span>Players</span>
+              <input id="player-count" name="player-count" type="number" min="2" max="4" step="1" value="4" inputmode="numeric" />
+            </label>
+            <label class="select-field" for="difficulty-select">
+              <span>Difficulty</span>
+              <select id="difficulty-select" name="difficulty">
+                <option value="4">(4) Introductory</option>
+                <option value="5" selected>(5) Standard</option>
+                <option value="6">(6) Heroic</option>
+                <option id="legendary-option" value="7" hidden disabled>(7) Legendary</option>
+              </select>
+            </label>
+            <label class="on-the-brink-field setup-field-wide" for="draw-cooldown-checkbox">
+              <input id="draw-cooldown-checkbox" name="draw-cooldown" type="checkbox" checked />
+              <span>Draw cooldown</span>
+            </label>
+            <label class="on-the-brink-field setup-field-wide" for="danger-estimator-checkbox">
+              <input id="danger-estimator-checkbox" name="danger-estimator" type="checkbox" checked />
+              <span>Danger Estimator</span>
+            </label>
           </div>
-          <span class="setup-mark" aria-hidden="true">+</span>
+          <p class="setup-error" id="setup-error" role="status" aria-live="polite"></p>
         </div>
-        <div class="setup-fields">
-          <label class="select-field setup-field-wide" for="game-select">
-            <span>Game</span>
-            <select id="game-select" name="game">
-              <option value="pandemic">Pandemic</option>
-              <option value="iberia">Iberia</option>
-            </select>
-          </label>
-          <label class="on-the-brink-field setup-field-wide" id="on-the-brink-field" for="on-the-brink-checkbox">
-            <input id="on-the-brink-checkbox" name="on-the-brink" type="checkbox" />
-            <span>On The Brink</span>
-          </label>
-          <label class="on-the-brink-field setup-field-wide" id="mutations-field" for="mutations-checkbox" hidden>
-            <input id="mutations-checkbox" name="mutations" type="checkbox" />
-            <span>Mutations (+3 cards)</span>
-          </label>
-          <label class="number-field" for="player-count">
-            <span>Players</span>
-            <input id="player-count" name="player-count" type="number" min="2" max="4" step="1" value="4" inputmode="numeric" />
-          </label>
-          <label class="select-field" for="difficulty-select">
-            <span>Difficulty</span>
-            <select id="difficulty-select" name="difficulty">
-              <option value="4">(4) Introductory</option>
-              <option value="5" selected>(5) Standard</option>
-              <option value="6">(6) Heroic</option>
-              <option id="legendary-option" value="7" hidden disabled>(7) Legendary</option>
-            </select>
-          </label>
-          <label class="on-the-brink-field setup-field-wide" for="draw-cooldown-checkbox">
-            <input id="draw-cooldown-checkbox" name="draw-cooldown" type="checkbox" checked />
-            <span>Draw cooldown</span>
-          </label>
-          <label class="on-the-brink-field setup-field-wide" for="danger-estimator-checkbox">
-            <input id="danger-estimator-checkbox" name="danger-estimator" type="checkbox" checked />
-            <span>Danger Estimator</span>
-          </label>
-        </div>
-        <p class="setup-error" id="setup-error" role="status" aria-live="polite"></p>
       </section>
     </main>
   </body>
