@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#edf1ed" />
+    <meta name="description" content="A local-first Pandemic and Iberia player deck simulator." />
+    <title>Pandemic | Player Deck</title>
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="./script.js" defer></script>
+  </head>
+  <body>
+    <main class="app-shell" aria-labelledby="page-title">
+      <header class="topbar">
+        <a class="brand" href="#page-title" aria-label="PanDeckmic home">
+          <span class="brand-mark" aria-hidden="true">P</span>
+          <span>PanDeckmic</span>
+        </a>
+      </header>
+
+      <section class="page-heading" aria-labelledby="page-title">
+        <p class="eyebrow">ROUND <span id="round-count">1</span>, PLAYER <span id="player-turn-count">1</span></p>
+        <h1 id="page-title">Player deck</h1>
+      </section>
+
+      <section class="remaining-panel" aria-label="Deck status">
+        <div>
+          <p class="section-label">DECK STATUS</p>
+          <h2>Cards remaining</h2>
+        </div>
+        <div class="remaining-statistics">
+          <p class="remaining-value"><span id="remaining-count" aria-live="polite">52</span><span>cards</span></p>
+          <p class="remaining-epidemics"><span id="remaining-epidemic-count" aria-live="polite">4</span> Epidemics</p>
+        </div>
+      </section>
+
+      <section class="draw-results" aria-label="Draw results">
+        <div class="result-slots">
+          <div class="result-slot" id="draw-result-1" data-empty="true" role="group" aria-label="First drawn card" aria-live="polite">
+            <span class="visually-hidden">No card drawn</span>
+          </div>
+          <div class="result-slot" id="draw-result-2" data-empty="true" role="group" aria-label="Second drawn card" aria-live="polite">
+            <span class="visually-hidden">No card drawn</span>
+          </div>
+        </div>
+
+        <div class="card-key" aria-label="Card types">
+          <div class="card-type">
+            <span class="symbol player-symbol" aria-hidden="true"><span></span></span>
+            <span>Player Card</span>
+          </div>
+          <div class="card-type">
+            <span class="symbol epidemic-symbol" aria-hidden="true">&#9763;</span>
+            <span>Epidemic</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="controls" aria-label="Deck controls">
+        <div class="danger-estimate" id="danger-estimate" aria-labelledby="danger-estimate-label">
+          <div class="danger-estimate-heading">
+            <p class="section-label" id="danger-estimate-label">DANGER ESTIMATE</p>
+            <output class="danger-estimate-value" id="danger-estimate-value" aria-live="polite">  0%</output>
+          </div>
+          <div
+            class="danger-gauge"
+            id="danger-gauge"
+            role="progressbar"
+            aria-labelledby="danger-estimate-label"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            aria-valuenow="0"
+            aria-valuetext="0% estimated chance of at least one Epidemic in the next two cards"
+          >
+            <span class="danger-gauge-marker" aria-hidden="true"></span>
+          </div>
+          <p class="visually-hidden">Approximate model estimate for the chance of at least one Epidemic in the next two cards.</p>
+        </div>
+        <button class="draw-button" id="draw-button" type="button">
+          <span>Draw 2 Cards</span>
+          <span class="button-arrow" aria-hidden="true">&#8594;</span>
+        </button>
+        <div class="secondary-controls">
+          <button class="reorder-button" id="reorder-button" type="button" aria-expanded="false" aria-controls="reorder-panel">
+            <span class="reorder-icon" aria-hidden="true">&#8645;</span>
+            <span>Reorder Top 3</span>
+            <span class="expansion-label">IBERIA</span>
+          </button>
+          <button class="reset-button" id="reset-button" type="button">
+            <span aria-hidden="true">&#8635;</span>
+            <span id="reset-label">Reset</span>
+          </button>
+        </div>
+        <div class="reorder-panel" id="reorder-panel" hidden>
+          <div class="section-heading reorder-panel-heading">
+            <div>
+              <p class="section-label">IBERIA</p>
+              <h2>Reorder top cards</h2>
+            </div>
+            <span class="draw-count" id="reorder-count"></span>
+          </div>
+          <p class="reorder-label">CURRENT ORDER</p>
+          <div class="reorder-card-row" id="reorder-current" role="group" aria-label="Current top card order"></div>
+          <p class="reorder-label">NEW ORDER</p>
+          <div class="reorder-card-row" id="reorder-selection" role="group" aria-label="Selected card order"></div>
+          <p class="reorder-status" id="reorder-status" aria-live="polite"></p>
+          <div class="reorder-panel-actions">
+            <button class="reorder-action" id="reorder-cancel" type="button">Keep current</button>
+            <button class="reorder-action apply-reorder" id="reorder-apply" type="button" disabled>Apply order</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="setup" aria-labelledby="setup-title">
+        <div class="section-heading setup-heading">
+          <div>
+            <p class="section-label">CONFIGURATION</p>
+            <h2 id="setup-title">Deck setup</h2>
+          </div>
+          <span class="setup-mark" aria-hidden="true">+</span>
+        </div>
+        <div class="setup-fields">
+          <label class="select-field setup-field-wide" for="game-select">
+            <span>Game</span>
+            <select id="game-select" name="game">
+              <option value="pandemic">Pandemic</option>
+              <option value="iberia">Iberia</option>
+            </select>
+          </label>
+          <label class="on-the-brink-field setup-field-wide" id="on-the-brink-field" for="on-the-brink-checkbox">
+            <input id="on-the-brink-checkbox" name="on-the-brink" type="checkbox" />
+            <span>On The Brink</span>
+          </label>
+          <label class="on-the-brink-field setup-field-wide" id="mutations-field" for="mutations-checkbox" hidden>
+            <input id="mutations-checkbox" name="mutations" type="checkbox" />
+            <span>Mutations (+3 cards)</span>
+          </label>
+          <label class="number-field" for="player-count">
+            <span>Players</span>
+            <input id="player-count" name="player-count" type="number" min="2" max="4" step="1" value="4" inputmode="numeric" />
+          </label>
+          <label class="select-field" for="difficulty-select">
+            <span>Difficulty</span>
+            <select id="difficulty-select" name="difficulty">
+              <option value="4">(4) Introductory</option>
+              <option value="5" selected>(5) Standard</option>
+              <option value="6">(6) Heroic</option>
+              <option id="legendary-option" value="7" hidden disabled>(7) Legendary</option>
+            </select>
+          </label>
+          <label class="on-the-brink-field setup-field-wide" for="draw-cooldown-checkbox">
+            <input id="draw-cooldown-checkbox" name="draw-cooldown" type="checkbox" checked />
+            <span>Draw cooldown</span>
+          </label>
+          <label class="on-the-brink-field setup-field-wide" for="danger-estimator-checkbox">
+            <input id="danger-estimator-checkbox" name="danger-estimator" type="checkbox" checked />
+            <span>Danger Estimator</span>
+          </label>
+        </div>
+        <p class="setup-error" id="setup-error" role="status" aria-live="polite"></p>
+      </section>
+    </main>
+  </body>
+</html>
